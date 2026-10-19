@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gestor de gastos y ahorros con gráficos, filtros y exportación a CSV.">
+  <title>Finanzas · Gestor de gastos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Finanzas<span>.</span></h1>
+      <p>Gestor de gastos y ahorros</p>
+    </div>
+    <div class="acciones">
+      <input type="month" id="mes" aria-label="Mes a visualizar">
+      <button class="ghost" id="demo">Datos de ejemplo</button>
+      <button class="ghost" id="csv">Exportar CSV</button>
+      <button class="ghost" id="tema" aria-label="Cambiar tema">◐</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <button class="tab on" data-vista="gastos">Gastos</button>
+    <button class="tab" data-vista="ahorros">Ahorros</button>
+  </nav>
+
+  <main>
+    <div class="vista" id="vista-gastos">
+    <section class="kpis" id="kpis" aria-live="polite"></section>
+
+    <section class="panel">
+      <h2 id="tituloForm">Nuevo movimiento</h2>
+      <form id="f" class="form">
+        <label>Descripción<input name="desc" maxlength="60" required placeholder="Ej. Supermercado"></label>
+        <label>Monto<input name="monto" type="number" min="1" step="any" required placeholder="0"></label>
+        <label>Tipo
+          <select name="tipo"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select>
+        </label>
+        <label>Categoría<select name="cat" id="cat"></select></label>
+        <label>Fecha<input name="fecha" type="date" required></label>
+        <div class="botones">
+          <button class="primary">Guardar</button>
+          <button type="button" class="ghost" id="cancelar" hidden>Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="cols">
+      <section class="panel">
+        <div class="barra">
+          <h2>Movimientos</h2>
+          <input type="search" id="q" placeholder="Buscar…" aria-label="Buscar movimientos">
+          <select id="ft" aria-label="Filtrar por tipo">
+            <option value="todos">Todos</option>
+            <option value="ingreso">Ingresos</option>
+            <option value="gasto">Gastos</option>
+          </select>
+        </div>
+        <div id="lista"></div>
+      </section>
+
+      <aside>
+        <section class="panel">
+          <h2>Gastos por categoría</h2>
+          <div class="dona-wrap">
+            <div class="dona" id="dona" role="img" aria-label="Gráfico de gastos por categoría"></div>
+            <ul class="leyenda" id="leyenda"></ul>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+    <div class="vista" id="vista-ahorros" hidden>
+      <section class="kpis" id="kpisAh"></section>
+
+      <section class="panel">
+        <h2>Nueva meta</h2>
+        <form id="fMeta" class="form formMeta">
+          <label>Nombre<input name="nombre" maxlength="40" required placeholder="Ej. Viaje a Brasil"></label>
+          <label>Objetivo<input name="monto" type="number" min="1" required placeholder="0"></label>
+          <label>Fecha límite (opcional)<input name="limite" type="date"></label>
+          <button class="primary">Crear meta</button>
+        </form>
+      </section>
+
+      <section class="metas" id="metas"></section>
+
+      <section class="panel">
+        <h2>Historial de ahorro</h2>
+        <div id="listaAh"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Hecho con HTML, CSS y JavaScript · Los datos se guardan solo en tu navegador</footer>
+  <script src="app.js"></script>
+</body>
+</html>
